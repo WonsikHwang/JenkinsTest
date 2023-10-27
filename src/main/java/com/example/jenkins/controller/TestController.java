@@ -10,4 +10,8 @@ public class TestController {
     public String testController() {
         return "Jenkins Test";
     }
+    @GetMapping("/test")
+    public String testController2() {
+        return "<h1>우리집에 왜 왔니</h1>";
+    }
 }
