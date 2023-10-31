@@ -14,4 +14,9 @@ public class TestController {
     public String testController2() {
         return "<h1>우리집에 왜 왔니</h1>";
     }
+
+    @GetMapping("/test2")
+    public String testController3() {
+        return "<h1>우리집에 왜 왔니 왜 왔니</h1>";
+    }
 }

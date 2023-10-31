@@ -1,6 +1,7 @@
 FROM openjdk:17
 
 ARG JAR_FILE=build/libs/*.jar
+
 ENV ENV_IDLE_PROFILE=production
 
 COPY ${JAR_FILE} app.jar
