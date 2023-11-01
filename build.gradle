@@ -25,9 +25,9 @@ dependencies {
     runtimeOnly 'mysql:mysql-connector-java:8.0.33'
     runtimeOnly "com.h2database:h2"
 
-    // Actuator, 서버의 상태를 확인하고 동작 가능 여부를 추적하기 위해서 추가, /actuator/health 경로에서 서버의 동작 가능 여부를 확인할 수 있음
+    // 서버의 상태를 확인하고 동작 가능 여부를 추적하기 위해서 추가
+    // GET:/actuator/health 경로에서 서버의 동작 가능 여부를 확인할 수 있음
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
-
 
 }
 
