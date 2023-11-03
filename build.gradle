@@ -1,3 +1,9 @@
+buildscript {
+    ext {
+        queryDslVersion = "5.0.0"
+    }
+}
+
 plugins {
     id 'java'
     id 'org.springframework.boot' version '2.7.17'
@@ -17,13 +23,40 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     runtimeOnly 'mysql:mysql-connector-java:8.0.33'
     runtimeOnly "com.h2database:h2"
+
+    testCompileOnly 'org.projectlombok:lombok'
+    testAnnotationProcessor 'org.projectlombok:lombok'
+
+
+    // Querydsl 관련 라이브러리
+    /* Querydsl JPA 라이브러리를 프로젝트의 구현 의존성으로 추가하는 부분.
+     Querydsl을 JPA(Java Persistence API)와 함께 사용할 때 필요한 부분 */
+    implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
+
+    /* Annotation Processor를 설정하는 부분.
+      Annotation Processor는 컴파일 시간에 소스 코드를 처리하고 생성된 코드를 생성할 때 사용 */
+    annotationProcessor(
+            // JPA 애노테이션을 처리하기 위한 Annotation Processor
+            "javax.persistence:javax.persistence-api",
+            // Java 어노테이션을 처리하기 위한 Annotation Processor
+            "javax.annotation:javax.annotation-api",
+            // Querydsl APT (Annotation Processing Tool) 라이브러리를 사용하는 Annotation Processor
+            "com.querydsl:querydsl-apt:${queryDslVersion}:jpa")
+    // Querydsl은 쿼리 생성을 위해 APT를 사용하며, 이것이 JPA와 함께 사용되면 JPA 엔터티에 대한 쿼리 메서드를 생성
+
+    // validation 관련 라이브러리
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
 
     // 서버의 상태를 확인하고 동작 가능 여부를 추적하기 위해서 추가
     // GET:/actuator/health 경로에서 서버의 동작 가능 여부를 확인할 수 있음
@@ -33,4 +66,12 @@ dependencies {
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ["$projectDir/src/main/java", "$projectDir/build/generated"]
+        }
+    }
 }
