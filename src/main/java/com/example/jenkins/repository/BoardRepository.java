@@ -8,4 +8,7 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
 
     @Query(value = "select now()", nativeQuery = true)
     public String test();
+
+    @Query(value = "show databases", nativeQuery = true)
+    public String test2();
 }
