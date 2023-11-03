@@ -44,4 +44,12 @@ public class TestController {
 
         return con.toString();
     }
+
+    @GetMapping("/test5")
+    public String testController6() throws SQLException {
+        @Cleanup
+        Connection con = dataSource.getConnection();
+
+        return con.toString();
+    }
 }
